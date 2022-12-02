@@ -3,7 +3,8 @@ import time
 import PoseModule2 as pm
 import direction 
 import degree
-# import score
+import score
+import count
 
 # 함수 main에 있는 부분 그대로 복붙
 
@@ -20,9 +21,12 @@ detector = pm.poseDetector()
 
 width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
 height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-
+stack=0
 cnt = 0
+num = 0
+time_ = 0
 while True:
+    print(stack)
     cnt+=1
     success, img = cap.read()
 
@@ -51,9 +55,14 @@ while True:
     view=''
     armdeg = 0
     bodydeg = 0
+    # 나중에 수정할 내용 - 함수를 하나로 합치기
     img, view = direction.direction(img, lmList, view)
     img, armdeg, bodydeg = degree.degree(img, lmList, width, height, view, armdeg, bodydeg)
     
+    # 30프레임 이후 count 시작, 영상 처음 이상하게 detection함.
+    if cnt >= 30:
+        img, num, stack = count.count(img, armdeg, bodydeg, stack, num)
+        img, finalscore = score.score(img, armdeg, bodydeg)
     cv2.imshow("Image", img)
     if cv2.waitKey(10) == 27:
         break
