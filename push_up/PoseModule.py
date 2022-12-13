@@ -11,6 +11,8 @@ class poseDetector():
                  detectionCon=0.5, trackCon=0.5):
 
         # 이거 pose 함수 눌러보면 안에 있는 것들임.
+        # 이거 유튜브랑 같은 내용.
+        # 이게 라이브러리가 수정되어서 PoseModule2를 새로 만들었다.
         self.mode = mode
         self.upBody = upBody
         self.smooth = smooth
