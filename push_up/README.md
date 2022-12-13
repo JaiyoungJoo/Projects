@@ -23,3 +23,8 @@ https://google.github.io/mediapipe/solutions/pose.html
     - If the angle is less than 90 degrees, it means push-down.
     - If the angle is greater than 170 degrees, it means push-up.
     - When person goes push-down first and goes push-up, model add push-up count.
+
+# To Do List
+
+- [ ] 카운트 세는 것 만들기
+- [ ] 점수 계산하는 것 만들기
