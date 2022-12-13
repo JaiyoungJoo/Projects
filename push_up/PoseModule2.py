@@ -11,6 +11,7 @@ class poseDetector():
                  detectionCon=0.5, trackCon=0.5):
 
         # 이거 pose 함수 눌러보면 안에 있는 것들임.
+        # 유튜브랑 내용 달라서 수정함.
         self.mode = mode
         self.complexity = complexity
         self.enable = enable
