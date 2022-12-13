@@ -8,8 +8,8 @@ import count
 
 # 함수 main에 있는 부분 그대로 복붙
 
-cap = cv2.VideoCapture('perfect_push_up.mp4')
-# cap = cv2.VideoCapture('leftpushup.mp4')
+# cap = cv2.VideoCapture('perfect_push_up.mp4')
+cap = cv2.VideoCapture('leftpushup.mp4')
 # cap = cv2.VideoCapture('rightpushup.mp4')
 # cap = cv2.VideoCapture('only_federer.avi')
 
@@ -24,9 +24,9 @@ height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 stack=0
 cnt = 0
 num = 0
-time_ = 0
+armscore = 0
 while True:
-    print(stack)
+    
     cnt+=1
     success, img = cap.read()
 
@@ -62,7 +62,11 @@ while True:
     # 30프레임 이후 count 시작, 영상 처음 이상하게 detection함.
     if cnt >= 30:
         img, num, stack = count.count(img, armdeg, bodydeg, stack, num)
-        img, finalscore = score.score(img, armdeg, bodydeg)
+        img, finalscore, armscore = score.score(img, armdeg, bodydeg, width, stack, armscore)
+    else:
+        cv2.putText(img, 'Wait a second...', (20, 150), cv2.FONT_HERSHEY_PLAIN, 3,
+                (255, 0, 0), 3)
+
     cv2.imshow("Image", img)
     if cv2.waitKey(10) == 27:
         break
