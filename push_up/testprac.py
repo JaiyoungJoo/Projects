@@ -37,7 +37,6 @@ while True:
     # lmList = detector.findPosition(img, draw=True)
     if len(lmList) !=0:
         # print(lmList)
-        print('========================')
         # cv2.circle(img, (lmList[14][1], lmList[14][2]), 15, (0, 0, 255), cv2.FILLED)
 
     cTime = time.time()
