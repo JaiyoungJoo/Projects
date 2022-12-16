@@ -14,11 +14,13 @@ score 기준
 - 팔 160 ~ 180도 : 50점 ~ 100점
 - stack = 1 다운 상태
 - stack = 0 업 상태
-- 카운트는 100부터 시작
+
+- 카운트가 1 증가하는 순간 score를 0으로 만들자.
+
 
 '''
-def score(img, armdeg, bodydeg, width, stack, armscore):
-
+def score(img, armdeg, bodydeg, width, stack,armscore, num):
+    # armscore = 0
     # down position
     if stack == 1 and armdeg <= 100:
         armscore2 = 150 - armdeg
@@ -26,8 +28,8 @@ def score(img, armdeg, bodydeg, width, stack, armscore):
         #                 (255, 0, 0), 3)
         if armscore2 > armscore:
             armscore = armscore2
-    elif stack == 0:
-        armscore = 0
+    # elif stack == 0:
+    #     armscore = 0
     else:
         armscore = armscore
         
@@ -42,4 +44,4 @@ def score(img, armdeg, bodydeg, width, stack, armscore):
 
 
     finalscore = 0
-    return img, finalscore, armscore
+    return img, finalscore, armscore, num

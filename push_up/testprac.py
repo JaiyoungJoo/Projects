@@ -23,7 +23,7 @@ width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
 height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 stack=0
 cnt = 0
-num = 0
+num = 0 # 푸쉬업 횟수
 armscore = 0
 while True:
     
@@ -61,8 +61,8 @@ while True:
     
     # 30프레임 이후 count 시작, 영상 처음 이상하게 detection함.
     if cnt >= 30:
-        img, num, stack = count.count(img, armdeg, bodydeg, stack, num)
-        img, finalscore, armscore = score.score(img, armdeg, bodydeg, width, stack, armscore)
+        img, num, stack, armscore = count.count(img, armdeg, bodydeg, stack, num, armscore)
+        img, finalscore, armscore, num = score.score(img, armdeg, bodydeg, width, stack,armscore, num)
     else:
         cv2.putText(img, 'Wait a second...', (20, 150), cv2.FONT_HERSHEY_PLAIN, 3,
                 (255, 0, 0), 3)
