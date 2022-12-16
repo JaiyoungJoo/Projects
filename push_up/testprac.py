@@ -35,7 +35,8 @@ while True:
     img = detector.findPose(img)
     lmList = detector.findPosition(img, draw=False)
     # lmList = detector.findPosition(img, draw=True)
-    if len(lmList) !=0:
+    # if len(lmList) !=0:
+        
         # print(lmList)
         # cv2.circle(img, (lmList[14][1], lmList[14][2]), 15, (0, 0, 255), cv2.FILLED)
 
