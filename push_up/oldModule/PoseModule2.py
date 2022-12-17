@@ -77,17 +77,20 @@ class poseDetector():
         return angle
 
 def main():
-    cap = cv2.VideoCapture('PoseVideos/1.mp4')
+    # cap = cv2.VideoCapture('PoseVideos/1.mp4')
+    cap = cv2.VideoCapture('leftpushup.mp4')
     pTime = 0
     detector = poseDetector() # 위의 함수를 정의함.
     while True:
         success, img = cap.read()
         img = detector.findPose(img)
         lmList = detector.findPosition(img, draw=False)
+        
         if len(lmList) != 0:
-            print(lmList[14]) # 이거 14번 점의 좌표만 보는 것
+            angle = detector.findAngle(img, 15,13,11)
+            print(lmList) # 이거 14번 점의 좌표만 보는 것
             # 밑에 원 그릴 때 14번 점의 x, y 좌표를 넣는다.
-            cv2.circle(img, (lmList[14][1], lmList[14][2]), 15, (0, 0, 255), cv2.FILLED)
+            # cv2.circle(img, (lmList[14][1], lmList[14][2]), 15, (0, 0, 255), cv2.FILLED)
 
         cTime = time.time()
         fps = 1 / (cTime - pTime)
@@ -97,7 +100,9 @@ def main():
                     (255, 0, 0), 3)
 
         cv2.imshow("Image", img)
-        cv2.waitKey(1)
+        
+        if cv2.waitKey(10) == 27:
+            break
 
 
 # 이 파이썬 파일 실행하면 main 함수 실행함.

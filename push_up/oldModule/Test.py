@@ -1,13 +1,14 @@
 import cv2
 import time
-from Module import PoseModule3 as pm
-import utils
+import PoseModule2 as pm
+import direction 
+import degree
+import score
+import count
 
 # 함수 main에 있는 부분 그대로 복붙
 
-cap = cv2.VideoCapture('sample_video/leftpushup.mp4')
-# cap = cv2.VideoCapture('sample_video/rightpushup.mp4')
-# cap = cv2.VideoCapture('perfect_push_up.mp4')
+cap = cv2.VideoCapture('leftpushup.mp4')
 
 # To count FPS 
 pTime = 0
@@ -46,7 +47,7 @@ while True:
         break
 
     # draw=False : 선 안그림
-    img = detector.findPose(img, draw=False)
+    img = detector.findPose(img, draw=True)
     # draw=False : 점 안그림
     lmList = detector.findPosition(img, draw=False)
     
@@ -64,22 +65,14 @@ while True:
                 (255, 0, 0), 3)
 
     # 나중에 수정할 내용 - 함수를 하나로 합치기
-    img, view = utils.direction(img, lmList, view)
-    # 각도 계산 / 그리기
-    if len(lmList) !=0 and view == 'left':
-        armdeg = detector.findAngle(img, 15,13,11)
-        bodydeg = detector.findAngle(img, 25,23,11)
-    elif len(lmList) !=0 and view == 'right':
-        armdeg = detector.findAngle(img, 12,14,16)
-        bodydeg = detector.findAngle(img, 12,24,26)
-
-    img, armdeg, bodydeg = utils.degree(img, lmList, width, height, view, armdeg, bodydeg)
+    img, view = direction.direction(img, lmList, view)
+    img, armdeg, bodydeg = degree.degree(img, lmList, width, height, view, armdeg, bodydeg)
     
     # 30프레임 이후 count 시작, 영상 처음 이상하게 detection함.
     # 30frame 이전 'Wait a second...' 출력
     if cnt >= 30:
-        img, num, stack, armscore = utils.count(img, armdeg, bodydeg, stack, num, armscore)
-        img, armscore, num = utils.score(img, armdeg, bodydeg, width, stack,armscore, num)
+        img, num, stack, armscore = count.count(img, armdeg, bodydeg, stack, num, armscore)
+        img, armscore, num = score.score(img, armdeg, bodydeg, width, stack,armscore, num)
     else:
         cv2.putText(img, 'Wait a second...', (20, 150), cv2.FONT_HERSHEY_PLAIN, 3,
                 (255, 0, 0), 3)
