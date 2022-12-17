@@ -13,11 +13,13 @@ def degree(img, lmList, width, height, view, armdeg, bodydeg):
             # 각 벡터 길이 구하기
             rightarm_d1 = math.sqrt((lmList[12][1]-lmList[14][1])**2 + (lmList[12][2]-lmList[14][2])**2)
             rightarm_d2 = math.sqrt((lmList[16][1]-lmList[14][1])**2 + (lmList[16][2]-lmList[14][2])**2)
+            
             # 두 벡터 사이 점곱
             v1v2 = (lmList[12][1]-lmList[14][1])*(lmList[16][1]-lmList[14][1]) + (lmList[12][2]-lmList[14][2])*(lmList[16][2]-lmList[14][2])
 
             # cos값 구하기
             arm_c = v1v2/(rightarm_d1*rightarm_d2)
+            
             # cos값으로 radian값 구하기
             arm_rad = math.acos(arm_c)
             PI = math.pi
@@ -34,11 +36,13 @@ def degree(img, lmList, width, height, view, armdeg, bodydeg):
             # 각 벡터 길이 구하기
             body_d1 = math.sqrt((lmList[12][1]-lmList[24][1])**2 + (lmList[12][2]-lmList[24][2])**2)
             body_d2 = math.sqrt((lmList[26][1]-lmList[24][1])**2 + (lmList[26][2]-lmList[24][2])**2)
+            
             # 두 벡터 사이 점곱
             bodyv1v2 = (lmList[12][1]-lmList[24][1])*(lmList[26][1]-lmList[24][1]) + (lmList[12][2]-lmList[24][2])*(lmList[26][2]-lmList[24][2])
 
             # cos값 구하기
             body_c = bodyv1v2/(body_d1*body_d2)
+            
             # cos값으로 radian값 구하기
             rad = math.acos(body_c)
             PI = math.pi
@@ -53,8 +57,6 @@ def degree(img, lmList, width, height, view, armdeg, bodydeg):
 
             armdeg = arm_deg
             bodydeg = deg
-
-
 
         elif view == 'left':
             # 벡터 구하기
