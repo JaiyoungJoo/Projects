@@ -47,7 +47,7 @@ while True:
         break
 
     # draw=False : 선 안그림
-    img = detector.findPose(img, draw=False)
+    img = detector.findPose(img, draw=True)
     # draw=False : 점 안그림
     lmList = detector.findPosition(img, draw=False)
     
@@ -78,7 +78,7 @@ while True:
                 (255, 0, 0), 3)
 
     cv2.imshow("Image", img)
-    
+
     # esc 누를 경우 영상 종료
     if cv2.waitKey(10) == 27:
         break
