@@ -7,14 +7,14 @@ import math
 
 class poseDetector():
 
-    def __init__(self, mode=False, upBody=False, smooth=True,
+    def __init__(self, mode=False, complexity=1, enable=False, smooth=True,
                  detectionCon=0.5, trackCon=0.5):
 
         # 이거 pose 함수 눌러보면 안에 있는 것들임.
-        # 이거 유튜브랑 같은 내용.
-        # 이게 라이브러리가 수정되어서 PoseModule2를 새로 만들었다.
+        # 유튜브랑 내용 달라서 수정함.
         self.mode = mode
-        self.upBody = upBody
+        self.complexity = complexity
+        self.enable = enable
         self.smooth = smooth
         self.detectionCon = detectionCon
         self.trackCon = trackCon
@@ -22,7 +22,7 @@ class poseDetector():
         self.mpDraw = mp.solutions.drawing_utils
         self.mpPose = mp.solutions.pose
         # 위에서 self 정의한 것을 Pose 함수 안에 넣어야 한다.
-        self.pose = self.mpPose.Pose(self.mode, self.upBody, self.smooth,
+        self.pose = self.mpPose.Pose(self.mode, self.complexity, self.enable, self.smooth,
                                      self.detectionCon, self.trackCon)
 
     def findPose(self, img, draw=True): # 이미지에 그림 그리기 싫으면 draw=False
@@ -78,17 +78,19 @@ class poseDetector():
 
 def main():
     # cap = cv2.VideoCapture('PoseVideos/1.mp4')
-    cap = cv2.VideoCapture('shutdown_cover2.mp4')
+    cap = cv2.VideoCapture('leftpushup.mp4')
     pTime = 0
     detector = poseDetector() # 위의 함수를 정의함.
     while True:
         success, img = cap.read()
         img = detector.findPose(img)
         lmList = detector.findPosition(img, draw=False)
+        
         if len(lmList) != 0:
-            print(lmList[14]) # 이거 14번 점의 좌표만 보는 것
+            angle = detector.findAngle(img, 15,13,11)
+            print(lmList) # 이거 14번 점의 좌표만 보는 것
             # 밑에 원 그릴 때 14번 점의 x, y 좌표를 넣는다.
-            cv2.circle(img, (lmList[14][1], lmList[14][2]), 15, (0, 0, 255), cv2.FILLED)
+            # cv2.circle(img, (lmList[14][1], lmList[14][2]), 15, (0, 0, 255), cv2.FILLED)
 
         cTime = time.time()
         fps = 1 / (cTime - pTime)
@@ -98,7 +100,9 @@ def main():
                     (255, 0, 0), 3)
 
         cv2.imshow("Image", img)
-        cv2.waitKey(1)
+        
+        if cv2.waitKey(10) == 27:
+            break
 
 
 # 이 파이썬 파일 실행하면 main 함수 실행함.
