@@ -1,6 +1,6 @@
 import cv2
 import time
-import PoseModule2 as pm
+import oldModule.PoseModule2 as pm
 
 '''
 score 기준

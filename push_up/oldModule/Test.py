@@ -1,10 +1,10 @@
 import cv2
 import time
-import PoseModule2 as pm
+import oldModule.PoseModule2 as pm
 import direction 
-import degree
+import Module.degree as degree
 import score
-import count
+import Module.count as count
 
 # 함수 main에 있는 부분 그대로 복붙
 
