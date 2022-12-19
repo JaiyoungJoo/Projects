@@ -28,3 +28,9 @@ https://google.github.io/mediapipe/solutions/pose.html
 
 - [ ] 카운트 세는 것 만들기
 - [ ] 점수 계산하는 것 만들기
+
+# Install mediapipe for mac1
+
+```
+pip install mediapipe-silicon
+```
