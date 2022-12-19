@@ -3,6 +3,25 @@ import time
 from Module import PoseModule3 as pm
 import utils
 
+import argparse
+
+# ==============================
+# ArgumentParser 객체
+parser = argparse.ArgumentParser(description='글자색 선택')
+
+# Argument 추가
+parser.add_argument('--color', dest='color',default='Blue',help='글자색 선택.[Red/Green/Blue]')
+# 입력 Argument를 args에 할당
+args = parser.parse_args()
+
+if args.color == 'Red':
+    color = (0,0,255)
+elif args.color == 'Green':
+    color = (0,255,0)
+elif args.color == 'Blue':
+    color = (255,0,0)
+# =============================
+
 # 함수 main에 있는 부분 그대로 복붙
 
 cap = cv2.VideoCapture('sample_video/leftpushup.mp4')
@@ -61,7 +80,7 @@ while True:
     pTime = cTime
     # FPS를 영상에 넣기
     cv2.putText(img, str(int(fps)), (20, 50), cv2.FONT_HERSHEY_PLAIN, 3,
-                (255, 0, 0), 3)
+                color, 3)
 
     # 나중에 수정할 내용 - 함수를 하나로 합치기
     img, view = utils.direction(img, lmList, view)
@@ -82,7 +101,7 @@ while True:
         img, armscore, num = utils.score(img, armdeg, bodydeg, width, stack,armscore, num)
     else:
         cv2.putText(img, 'Wait a second...', (20, 150), cv2.FONT_HERSHEY_PLAIN, 3,
-                (255, 0, 0), 3)
+                color, 3)
 
     cv2.imshow("Image", img)
 
