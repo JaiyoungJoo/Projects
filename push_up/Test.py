@@ -80,7 +80,7 @@ while True:
     pTime = cTime
     # FPS를 영상에 넣기
     cv2.putText(img, str(int(fps)), (20, 50), cv2.FONT_HERSHEY_PLAIN, 3,
-                (255, 0, 0), 3)
+                color, 3)
 
     # 나중에 수정할 내용 - 함수를 하나로 합치기
     img, view = utils.direction(img, lmList, view)
@@ -101,7 +101,7 @@ while True:
         img, armscore, num = utils.score(img, armdeg, bodydeg, width, stack,armscore, num)
     else:
         cv2.putText(img, 'Wait a second...', (20, 150), cv2.FONT_HERSHEY_PLAIN, 3,
-                (255, 0, 0), 3)
+                color, 3)
 
     cv2.imshow("Image", img)
 
