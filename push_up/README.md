@@ -29,7 +29,9 @@
     - 영상 첫 3frame은 pose detection이 제대로 되지 않아 count 하지 않음
   - 팔의 각도가 많이 굽혀질 수록 score가 증가
 - sample 영상 확인
+
   ![image](https://user-images.githubusercontent.com/103994779/209271508-af5923be-41c2-4372-82a2-d25493424854.png)
+
   ![image](https://user-images.githubusercontent.com/103994779/209271643-9c154c86-d9b3-4862-a507-07c4a7677622.png)
 
 <!-- <img src="https://user-images.githubusercontent.com/103994779/209259695-4a2081e3-96ad-4aac-a396-b49748d1254b.png" width="500" height="400"/>  -->
