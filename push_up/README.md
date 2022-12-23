@@ -1,36 +1,35 @@
-# Push up count model
+# Push-up count
 
-I use this model.<br>
-https://google.github.io/mediapipe/solutions/pose.html
-![image](https://user-images.githubusercontent.com/103994779/204980438-299a34d8-7fd6-4b3a-9f2b-a19383313603.png)
+## 프로젝트 기간
 
-## 1. How to detect Left or Right?
+- 2022.12.02 ~ 22.12.22
 
-- Check hand and foot locations
-  - Right side
-    - joint(12) and joint(28)
-    - If X-coordinate of joint(28) is located on the left side, it means camera watching right side of person.
-    - In this case, only use joint num(16,14,12,26,28)
-  - Left side
-    - joint(11) and joint(27)
-    - If X-coordinate of joint(27) is located on the left side, it means camera watching left side of person.
-    - In this case, only use joint num(15,13,11,25,27)
+## 프로젝트 인원
 
-## 2. How to count number of push-ups?
+- 총 1명
 
-- Rigth side
-  - Check angle between joint(12), joint(14) and joint(24).
-    - If the angle is less than 90 degrees, it means push-down.
-    - If the angle is greater than 170 degrees, it means push-up.
-    - When person goes push-down first and goes push-up, model add push-up count.
+## 프로젝트 내용
 
-# To Do List
+- Human skeleton detection model을 사용한 Push-up count model 만들기
+- Push-up 시험 등에서 사용할 수 있도록 정해진 규칙에 따라 객관적으로 횟수를 count하도록 model 구현
 
-- [v] 카운트 세는 것 만들기
-- [v] 점수 계산하는 것 만들기
+## 프로젝트 진행
 
-# Install mediapipe for mac1
+- 주제 선택
+  - 기초적이고 체력 검정에 많이 쓰이는 Push-up 선택
+- Human skeleton detection 조사
+  - 다양한 model 중 성능이 좋고 많은 기능이 있는 Google mediapipe pose API 선택
+  - https://google.github.io/mediapipe/solutions/pose.html
+- Google Mediapipe pose model 확인
+  - 총 33개의 pose landmarks를 detection
+  - 겹치는 부분을 제외하고 정확한 landmarks를 predict함
+- Push-up view, count, score 함수 구현
+  - 팔, 다리 X 좌표를 기준으로 영상의 좌,우를 판단
+  - 팔의 각도가 90˚이하로 굽혀질 때, 팔의 각도가 160˚이상 펴질 때 count
+    - 영상 첫 3frame은 pose detection이 제대로 되지 않아 count 하지 않음
+  - 팔의 각도가 많이 굽혀질 수록 score가 증가
+- sample 영상 확인
+  ![image](https://user-images.githubusercontent.com/103994779/209271508-af5923be-41c2-4372-82a2-d25493424854.png)
+  ![image](https://user-images.githubusercontent.com/103994779/209271643-9c154c86-d9b3-4862-a507-07c4a7677622.png)
 
-```
-pip install mediapipe-silicon
-```
+<!-- <img src="https://user-images.githubusercontent.com/103994779/209259695-4a2081e3-96ad-4aac-a396-b49748d1254b.png" width="500" height="400"/>  -->

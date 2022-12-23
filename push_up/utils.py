@@ -8,7 +8,7 @@ import math
 def score(img, armdeg, bodydeg, width, stack,armscore, num):
 
     # down position
-    if stack == 1 and armdeg <= 100:
+    if stack == 1 and armdeg <= 90:
         armscore2 = 150 - armdeg
         if armscore2 > armscore:
             armscore = armscore2
@@ -151,7 +151,7 @@ def degree(img, lmList, width, height, view, armdeg, bodydeg):
 
 def count(img, armdeg, bodydeg, stack, num, armscore):
 
-    if armdeg <= 100 and stack == 0:
+    if armdeg <= 90 and stack == 0:
         stack = 1
     elif armdeg >= 160 and stack == 1:
         num += 1
