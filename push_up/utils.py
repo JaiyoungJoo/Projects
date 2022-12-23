@@ -16,7 +16,7 @@ def score(img, armdeg, bodydeg, width, stack,armscore, num):
         armscore = armscore
 
     cv2.putText(img, f'score:{int(armscore):3d}', (int(width-430), 150), cv2.FONT_HERSHEY_PLAIN, 3,
-                        (255, 0, 0), 3)
+                        (0,255,0), 3)
 
     return img, armscore, num
 
@@ -25,11 +25,11 @@ def direction(img, lmList, view):
     if len(lmList) != 0 :
         if lmList[12][1] > lmList[24][1]:
             cv2.putText(img, str('right view'), (20, 100), cv2.FONT_HERSHEY_PLAIN, 3,
-                    (255, 0, 0), 3)
+                    (0,255,0), 3)
             view = 'right'
         else:
             cv2.putText(img, str('left view'), (20, 100), cv2.FONT_HERSHEY_PLAIN, 3,
-                    (255, 0, 0), 3)
+                    (0,255,0), 3)
             view = 'left'
             
     return img, view
@@ -159,6 +159,6 @@ def count(img, armdeg, bodydeg, stack, num, armscore):
         stack = 0
         
     cv2.putText(img, f'count:{num}, stack:{stack}', (20, 150), cv2.FONT_HERSHEY_PLAIN, 3,
-                (255, 0, 0), 3)
+                (0,255,0), 3)
 
     return img, num, stack, armscore

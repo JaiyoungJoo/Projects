@@ -2,6 +2,7 @@ import cv2
 import time
 from Module import PoseModule3 as pm
 import utils
+import makevideo
 
 import argparse
 
@@ -10,7 +11,8 @@ import argparse
 parser = argparse.ArgumentParser(description='글자색 선택')
 
 # Argument 추가
-parser.add_argument('--color', dest='color',default='Blue',help='글자색 선택.[Red/Green/Blue]')
+parser.add_argument('--color', dest='color',default='Blue',help='글자색 선택.[--color Red/Green/Blue]')
+parser.add_argument('--record', dest='record', default='False', help='녹화할 경우 [--record [filename]]')
 # 입력 Argument를 args에 할당
 args = parser.parse_args()
 
@@ -20,12 +22,15 @@ elif args.color == 'Green':
     color = (0,255,0)
 elif args.color == 'Blue':
     color = (255,0,0)
+
+if args.record != 'False':
+    filename = args.record
 # =============================
 
 # 함수 main에 있는 부분 그대로 복붙
 
-cap = cv2.VideoCapture('sample_video/leftpushup.mp4')
-# cap = cv2.VideoCapture('sample_video/rightpushup.mp4')
+# cap = cv2.VideoCapture('sample_video/leftpushup.mp4')
+cap = cv2.VideoCapture('sample_video/rightpushup.mp4')
 # cap = cv2.VideoCapture('perfect_push_up.mp4')
 
 # To count FPS 
@@ -56,6 +61,9 @@ view=''
 # To calculate arm degree and body degree
 armdeg = 0
 bodydeg = 0
+
+if args.record != 'False':
+    out = makevideo.makevideo(cap, width, height, filename)
 
 while True:
     cnt+=1
@@ -103,11 +111,17 @@ while True:
         cv2.putText(img, 'Wait a second...', (20, 150), cv2.FONT_HERSHEY_PLAIN, 3,
                 color, 3)
 
+    if args.record != 'False':
+        out.write(img)
+
     cv2.imshow("Image", img)
 
     # esc 누를 경우 영상 종료
     if cv2.waitKey(10) == 27:
         break
     # cv2.waitKey(1)
+
 cap.release()
+if args.record != 'False':
+    out.release()
 cv2.destroyAllWindows()
